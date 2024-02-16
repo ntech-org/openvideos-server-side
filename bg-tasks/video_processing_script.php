@@ -70,7 +70,7 @@ foreach ($commands as $command) {
 $runningProcesses = true;
 while ($runningProcesses) {
     // Get a list of all running ffmpeg processes
-    $processesOutput = exec('ps aux | grep "[f]fmpeg -i ' . $finalFilePath . '"');
+    $processesOutput = exec('ps aux | grep "ffmpeg -i ' . $finalFilePath . '"');
     // Check if any of the processes correspond to the current video's input file path
     if (empty($processesOutput)) {
         $runningProcesses = false; // No matching processes found, stop waiting
