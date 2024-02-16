@@ -69,8 +69,8 @@ foreach ($commands as $command) {
 // Wait for all processes related to the current video to finish
 $runningProcesses = true;
 while ($runningProcesses) {
-    // Get a list of all running ffmpeg processes
-    $processesOutput = exec('ps aux | grep "ffmpeg -i ' . $finalFilePath . '"');
+    // Get a list of all running ffmpeg processes, excluding the grep command
+    $processesOutput = shell_exec('ps aux | grep "[f]fmpeg.*' . addslashes($finalFilePath) . '" | grep -v grep');
     // Check if any of the processes correspond to the current video's input file path
     if (empty($processesOutput)) {
         $runningProcesses = false; // No matching processes found, stop waiting
@@ -78,6 +78,7 @@ while ($runningProcesses) {
     // Sleep for a short interval before checking again
     sleep(1);
 }
+
 
 
 // Remove the original video to save space since only the resolution files are needed
